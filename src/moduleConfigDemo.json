@@ -1,0 +1,32 @@
+{
+  "profil":"Profil_demo",
+  "inputs": ["inputdemo1","inputdemo2"],
+  "output": "outputdemo",
+  "outputdemo":{
+    "info":{
+      "name": "outputdemo",
+      "desc": "Output Demo desc",
+      "implementedBy": "OutputDemoModule",
+      "numBuforBytes": 10
+    },
+    "msSleepTime": 1000    
+  },
+  "inputdemo1":{
+    "info":{
+      "name": "inputdemo1",
+      "desc": "Input Demo 1 desc desc",
+      "implementedBy": "InputDemoModule",
+      "numBuforBytes": 8
+    },
+    "msSleepTime": 2000
+  },
+  "inputdemo2":{
+    "info":{
+      "name": "inputdemo2",
+      "desc": "Input Demo 2 desc desc",
+      "implementedBy": "InputDemoModule",
+      "numBuforBytes": 10
+    },
+    "msSleepTime": 4000
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "profil":"Profil_COM",
+  "inputs": ["lidar","leica"],
+  "output": "dspace",
+  "dspace":{
+    "info":{
+      "name": "Dspace",
+      "desc": "Dspace desc",
+      "implementedBy": "DspaceModule",
+      "numBuforBytes": 18
+    },
+    "port": "COM4",
+    "baundrate": 9600,
+    "join": true,
+    "msSleepTime": 50    
+  },
+  "lidar":{
+    "info":{
+      "name": "Lidar",
+      "desc": "Lidar desc",
+      "implementedBy": "LidarModule",
+      "numBuforBytes": 18
+    },
+    "port": "COM12",
+    "baundrate": 9600
+  },
+  "leica":{
+    "info":{
+      "name": "Leica",
+      "desc": "Leica desc",
+      "implementedBy": "LeicaModule",
+      "numBuforBytes": 18
+    },
+    "ip": "123.10.50.1",
+    "port": "8001",
+    "mode": "Stationary"
+  }
+}

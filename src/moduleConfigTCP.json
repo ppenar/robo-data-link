@@ -1,0 +1,37 @@
+{
+  "profil":"Profil_TCP",
+  "inputs": ["lidar","leica", "leica"],
+  "output": "tcp",
+
+  "tcp":{
+    "info":{
+      "name": "tcp",
+      "desc": "Modul wyjscia implementuje serwer TCP, ktory udostepnia dane z wyjsc przez TCP",
+      "implementedBy": "tcpModule"
+    },
+    "ip": "127.0.0.1",
+    "port": 50001,
+    "mode": "Command",
+    "msSleepTime": 50    
+  },
+
+  "lidar":{
+    "info":{
+      "name": "Lidar",
+      "desc": "Lidar desc",
+      "implementedBy": "lidarModule"
+    },
+    "port": "COM12",
+    "baundrate": 9600
+  },
+  "leica":{
+    "info":{
+      "name": "Leica",
+      "desc": "Leica desc",
+      "implementedBy": "leicaModule"
+    },
+    "ip": "123.10.50.1",
+    "port": "8001",
+    "mode": "Stationary"
+  }
+}
