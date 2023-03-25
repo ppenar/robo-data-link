@@ -12,7 +12,7 @@ if __name__ == '__main__':
     """
     try:
         utils.initConfig(CONFIG_FILE)
-        utils.initLogger(glob.cfg['LOG']['FileName'],consoleLogger=True)
+        utils.initLogger(glob.cfg['LOG']['FileName'],consoleLogger=False)
         try:
             moduleConfig=utils.initConfigModel(glob.cfg['CONFIG_JSON']['FileName'])
 

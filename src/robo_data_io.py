@@ -7,6 +7,7 @@ import numpy as np
 
 from demomodule.outputdemomodule import OutputDemoModule
 from demomodule.inputdemomodule import InputDemoModule
+from rplidar.LidarModule import LidarModule
 
 class RoboDataIO:
 
@@ -30,21 +31,30 @@ class RoboDataIO:
             glob.outputsBuffer[name] = np.zeros(numInt16,dtype=np.int16)
 
     def init(self):
+
+        self.input={}
+        self.sentOutputEventForInputs={}
+    
+
+        for i in self.config.getInputs():
+            inputName = i.info.name
+            inputImplementedBy =i.info.implementedBy
+            self.sentOutputEventForInputs[inputName] = Event()
+            self.input[inputName]=globals()[inputImplementedBy](inputName,
+                                                                self,
+                                                                self.sentOutputEventForInputs[inputName])
+            self.input[inputName].init()
+            
         
         self.tui.updateStatus("info",glob.STATUS_INIT)
         outputConfig=self.config.getOutput()
         outputImplementedBy = outputConfig.info.implementedBy
         self.output = globals()[outputImplementedBy](self)
         self.output.init()
+        
 
         
-        self.input={}
-
-        for i in self.config.getInputs():
-            inputName = i.info.name
-            inputImplementedBy =i.info.implementedBy
-            self.input[inputName]=globals()[inputImplementedBy](inputName,self)
-            self.input[inputName].init()
+        
 
         self.event.clear()
         
@@ -58,6 +68,11 @@ class RoboDataIO:
     def stop(self):
         self.event.set()
         self.tui.updateStatus("info",glob.STATUS_STOP)
+
+    def setOutputSendEvent(self):
+          for i in self.config.getInputs():
+            inputName = i.info.name
+            self.sentOutputEventForInputs[inputName].set()
       
 
 

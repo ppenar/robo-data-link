@@ -1,7 +1,7 @@
 Dokumentacja robo-data-link
 =============================
 
-**Robot-data-link** to łącznik danych z różnych sensorów przeznaczony do współpracy z urządzeniami, komunikującymi się za pomocą interfejsu RS-232 lub TCP
+**Robot-data-link** to łącznik danych z różnych sensorów przeznaczony do współpracy z urządzeniami, komunikującymi się za pomocą interfejsu RS-232 lub TCP.
 
 
 .. note::

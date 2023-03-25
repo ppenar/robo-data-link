@@ -33,7 +33,9 @@ class OutputDemoModule(Thread):
                 msg = "Send data no. {}".format(num)
                 self.lock.acquire()
                 self.ioManager.notify(self.name,msg)
+                self.ioManager.setOutputSendEvent()
                 self.lock.release()
+               
                 num=num+1
             
             if self.event.is_set():

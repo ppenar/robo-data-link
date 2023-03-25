@@ -6,7 +6,7 @@ import configparser
 import logging
 import robo_data_globals as glob
 from configModel import  ModuleConfig
-
+import serial
 import numpy as np
 
 def initConfig(fileName):
@@ -161,3 +161,35 @@ def getInfoBoxTexList():
         return listModeStr.split(",")
     else:
         return []
+    
+
+
+def testSerialPort(port,boundrate):
+    """Sprawdza możliwość otwarcia portu szeregowgo od podanej nazwie i zadeklarowanej prędkości
+    Zwraca True jeśli otwarcie jest możliwe; inaczej False.
+
+    :param port: nazwa portu szeregowego w systemie
+    :type port: string
+    :param boundrate: prędkość
+    :type boundrate: int
+    :return: zwraca konfiguracje I/O wynikającą z pliku JSON
+    :rtype: ModuleConfig
+    """
+    testOk=True
+    try:
+        ser = serial.Serial(
+            port = port,
+            baudrate=boundrate,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS
+        )
+        if ser.is_open:
+            testOk=True
+            ser.close
+        else:
+            testOk= False           
+    except serial.SerialException:
+        testOk=False
+
+    return testOk
