@@ -90,7 +90,7 @@ class JsonLidarScheme(Schema):
         return configModel.Lidar(**data)
     
 
-class JsonInputDemoScheme(Schema):
+class JsonInputRandomScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
     msSleepTime = fields.Integer(required=True, 
                         error_messages={
@@ -99,7 +99,7 @@ class JsonInputDemoScheme(Schema):
         })
     @post_load
     def makeObject(self, data, **kwargs):
-        return configModel.InputDemo(**data)
+        return configModel.InputRandom(**data)
 
 
 class JsonOutputDemoScheme(Schema):
@@ -184,14 +184,12 @@ class JsonConfigScheme(Schema):
         "required": utils.getErrorMsg("SchemeRequired"),
         "invalid": utils.getErrorMsg("SchemeStrInvalid")
         })
-    dspace  = fields.Nested(JsonDspaceScheme)
     tcp = fields.Nested(JsonTcpScheme)
     lidar = fields.Nested(JsonLidarScheme)
     leica = fields.Nested(JsonLeicaScheme)
-    inputdemo1 = fields.Nested(JsonInputDemoScheme)
-    inputdemo2 = fields.Nested(JsonInputDemoScheme)
-    outputdemo = fields.Nested(JsonOutputDemoScheme)
-
+    inputrandom1 = fields.Nested(JsonInputRandomScheme)
+    inputrandom2 = fields.Nested(JsonInputRandomScheme)
+    
     @pre_load
     def checkDefineModuleConfig(self, data, **kwargs):
         if data["output"] not in data:

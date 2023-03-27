@@ -1,0 +1,36 @@
+{
+  "profil":"Profil_demo",
+  "inputs": ["inputrandom1","inputrandom2"],
+  "output": "tcp",
+  "tcp":{
+    "info":{
+      "name": "output_tcp",
+      "desc": "Output TCP",
+      "implementedBy": "TcpOutput",
+      "numBuforBytes": 8
+    },
+    "msSleepTime": 2000,
+    "ip": "127.0.0.1",   
+    "port": 50001,
+    "mode": "Continous"
+
+  },
+  "inputrandom1":{
+    "info":{
+      "name": "inputrandom1",
+      "desc": "Input Random 1 desc",
+      "implementedBy": "InputRandom",
+      "numBuforBytes": 4
+    },
+    "msSleepTime": 2000
+  },
+  "inputrandom2":{
+    "info":{
+      "name": "inputrandom2",
+      "desc": "Input Random 2 desc",
+      "implementedBy": "InputRandom",
+      "numBuforBytes": 4
+    },
+    "msSleepTime": 2000
+  }
+}

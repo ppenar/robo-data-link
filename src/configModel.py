@@ -38,7 +38,7 @@ class OutputDemo:
         self.msSleepTime = msSleepTime
 
 
-class InputDemo:
+class InputRandom:
     """
         Klasa reprezentuje demonstracyjną konfiguracje wejścia
         
@@ -164,21 +164,19 @@ class ModuleConfig:
                 pole, którego wartość to obiekt opisujący konfiguracje trackera laserowego Leica. W przypadku, gdy w danej konfiguracji to wejście nie jest używane =None
         """
     def __init__(self,profil:str,inputs:list,output:str,
-                 dspace:Despace=None, tcp:Tcp=None,
+                 tcp:Tcp=None,
                  lidar:Lidar=None,leica: Leica=None,
-                 inputdemo1: InputDemo =None, inputdemo2: InputDemo =None,outputdemo: OutputDemo =None):
+                 inputrandom1: InputRandom =None, inputrandom2: InputRandom =None):
         self.profil =profil
         self.inputs=inputs
         self.output=output
-        self.dspace =dspace
         self.tcp =tcp
         self.lidar = lidar
         self.leica = leica
 
 
-        self.inputdemo1=inputdemo1
-        self.inputdemo2=inputdemo2
-        self.outputdemo=outputdemo
+        self.inputrandom1=inputrandom1
+        self.inputrandom2=inputrandom2
 
     def getOutput(self):
         """Zwraca obiekt opisujący konfiguracje danego wyjścia

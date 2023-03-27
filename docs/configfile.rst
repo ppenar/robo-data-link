@@ -1,7 +1,7 @@
 Plik konfiguracyjny
 ====================
 
-Plik konfiguracyjny definiuje działanie programu, który można traktować, jako czarną skrzynkę do przetwarzania danych z wielu źródeł. **Wejścia** to moduły, które są wątkami Pythona obsługującymi połączenie z urządzeniami dostarczającymi dane. Takie podejście pozwala na wygodną implementacje logiki, niezależność czasową w ramach wątku i skalowalność rozwiązania. Pozyskane dane, poprzez wspólny bufor, trafiają na **wyjście**, jako strumień bajtów transmitowany w połączeniu szeregowym bądź jako dane wysyłane poprzez TCP/IP.
+Plik konfiguracyjny definiuje działanie programu, który można traktować jako czarną skrzynkę do przetwarzania danych z wielu źródeł. **Wejścia** to moduły, które są wątkami Pythona obsługującymi połączenie z urządzeniami dostarczającymi dane. Takie podejście pozwala na wygodną implementacje logiki, niezależność czasową w ramach wątku i skalowalność rozwiązania. Pozyskane dane, poprzez wspólny bufor, trafiają na **wyjście**, jako strumień bajtów transmitowany w połączeniu szeregowym bądź jako dane wysyłane poprzez TCP/IP.
 
 
 Przykład

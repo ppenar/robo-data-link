@@ -5,15 +5,15 @@ import robo_data_globals as glob
 from threading import Event, Lock
 import numpy as np
 
-from demomodule.outputdemomodule import OutputDemoModule
-from demomodule.inputdemomodule import InputDemoModule
 from rplidar.LidarModule import LidarModule
+from inputs.InputRandom import InputRandom
+from outputModule.TcpOutput import TcpOutput
 
 class RoboDataIO:
 
     def __init__(self, config:ModuleConfig,tui: TuiRoboDataLink) -> None:
         self.lock =Lock()
-        self.event = Event()
+        self.closeEvent = Event()
         self.config=config
         self.tui = tui
         self.tui.setObserver(self)
@@ -56,7 +56,7 @@ class RoboDataIO:
         
         
 
-        self.event.clear()
+        self.closeEvent.clear()
         
 
     def start(self):
@@ -66,7 +66,7 @@ class RoboDataIO:
         self.output.start() 
 
     def stop(self):
-        self.event.set()
+        self.closeEvent.set()
         self.tui.updateStatus("info",glob.STATUS_STOP)
 
     def setOutputSendEvent(self):
