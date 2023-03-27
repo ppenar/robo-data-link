@@ -85,6 +85,11 @@ class JsonLidarScheme(Schema):
         "required": utils.getErrorMsg("SchemeRequired"),
         "invalid": utils.getErrorMsg("SchemeIntInvalid")
         })
+    stepAngle = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
     @post_load
     def makeObject(self, data, **kwargs):
         return configModel.Lidar(**data)
@@ -114,7 +119,7 @@ class JsonOutputDemoScheme(Schema):
         return configModel.OutputDemo(**data)
 
 
-class JsonDspaceScheme(Schema):
+class JsonSerialScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
     port = fields.Str(required=True, 
                         error_messages={
@@ -138,7 +143,7 @@ class JsonDspaceScheme(Schema):
         })
     @post_load
     def makeObject(self, data, **kwargs):
-        return configModel.Despace(**data)
+        return configModel.Serial(**data)
     
 class JsonTcpScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
@@ -185,6 +190,7 @@ class JsonConfigScheme(Schema):
         "invalid": utils.getErrorMsg("SchemeStrInvalid")
         })
     tcp = fields.Nested(JsonTcpScheme)
+    serial = fields.Nested(JsonSerialScheme)
     lidar = fields.Nested(JsonLidarScheme)
     leica = fields.Nested(JsonLeicaScheme)
     inputrandom1 = fields.Nested(JsonInputRandomScheme)

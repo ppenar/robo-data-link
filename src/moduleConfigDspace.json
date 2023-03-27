@@ -1,15 +1,15 @@
 {
   "profil":"Profil_COM",
   "inputs": ["lidar"],
-  "output": "dspace",
-  "dspace":{
+  "output": "serial",
+  "serial":{
     "info":{
-      "name": "Dspace",
-      "desc": "Dspace desc",
-      "implementedBy": "OutputDemoModule",
+      "name": "serial",
+      "desc": "serial Dspace desc",
+      "implementedBy": "SerialOutput",
       "numBuforBytes": 18
     },
-    "port": "COM4",
+    "port": "/dev/ttyUSB1",
     "baundrate": 9600,
     "join": true,
     "msSleepTime": 1000    
@@ -22,6 +22,7 @@
       "numBuforBytes": 18
     },
     "port": "/dev/ttyUSB0",
-    "baundrate": 256000
+    "baundrate": 256000,
+    "stepAngle": 5
   }
 }

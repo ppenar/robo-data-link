@@ -8,6 +8,7 @@ import numpy as np
 from rplidar.LidarModule import LidarModule
 from inputs.InputRandom import InputRandom
 from outputModule.TcpOutput import TcpOutput
+from outputModule.SerialOutput import SerialOutput
 
 class RoboDataIO:
 

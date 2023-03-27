@@ -55,9 +55,9 @@ class InputRandom:
         self.msSleepTime = msSleepTime
 
 
-class Despace:
+class Serial:
     """
-        Klasa reprezentuje konfiguracje karty pomiarowej Dspace, która będzie stanowić możliwe wyjście z aplikacji
+        Klasa reprezentuje konfiguracje portu szeregowego, który będzie stanowić możliwe wyjście z aplikacji
         
         Parametry
         ----------
@@ -117,10 +117,13 @@ class Lidar:
                 nazwa portu szeregowego wykorzystanego do komunikacji z lidarem
             baundrate : int
                 szybkość komunikacji portu szeregowego
+            stepAngle: int
+                krok odczytu stopni
     """
-    def __init__(self,info:Info, port:str, baundrate:int) -> None:
+    def __init__(self,info:Info, port:str, baundrate:int,stepAngle:int) -> None:
         self.info = info
         self.port,self.baundrate =port,baundrate
+        self.stepAngle = stepAngle
 
 class Leica:
     """
@@ -164,7 +167,7 @@ class ModuleConfig:
                 pole, którego wartość to obiekt opisujący konfiguracje trackera laserowego Leica. W przypadku, gdy w danej konfiguracji to wejście nie jest używane =None
         """
     def __init__(self,profil:str,inputs:list,output:str,
-                 tcp:Tcp=None,
+                 tcp:Tcp=None, serial : Serial=None,
                  lidar:Lidar=None,leica: Leica=None,
                  inputrandom1: InputRandom =None, inputrandom2: InputRandom =None):
         self.profil =profil
@@ -173,6 +176,7 @@ class ModuleConfig:
         self.tcp =tcp
         self.lidar = lidar
         self.leica = leica
+        self.serial = serial
 
 
         self.inputrandom1=inputrandom1

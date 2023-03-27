@@ -15,7 +15,7 @@ class LidarModule(Thread):
         self.name =name
         self.config=ioManager.config
         self.lock=ioManager.lock
-        self.event=ioManager.event
+        self.closeEvent=ioManager.closeEvent
         self.outputSendEvent = outputSendEvent
         self.n=1
 
@@ -23,7 +23,11 @@ class LidarModule(Thread):
         self.port = self.config.getInputByName(self.name).port
         self.baundrate = int(self.config.getInputByName(self.name).baundrate)
         self.numInt16 =  int(self.config.getInputByName(self.name).info.numBuforBytes/2)
+        self.stepAngle =  int(self.config.getInputByName(self.name).stepAngle)
 
+        self.lidarNpArr = np.zeros(360)
+        self.sendData = np.zeros(self.numInt16,dtype=np.int16)
+        self.sendArrayIndex=0
         glob.log.info("Thread %s create",self.name)
 
     
@@ -47,34 +51,50 @@ class LidarModule(Thread):
 
 
     def run(self):
-
-        num=1
-        
+        self.lock.acquire()
+        glob.outputsBuffer[self.name] = np.zeros(self.numInt16,dtype=np.int16)
+        self.lock.release()
         while True:
-            self.lock.acquire()
-            
-            glob.outputsBuffer[self.name] = np.zeros(self.numInt16,dtype=np.int16)
-
-            self.lock.release()
-            glob.log.info("THREAD {} SAVE {}".format(self.name,self.numInt16))
-            
-            
-            if self.event.is_set():
-                self.afterClose()
-                break
-            if self.outputSendEvent.is_set():
-                self.afterSendByOutput()
+            scan_generator = self.lidar.start_scan()
+            for scan in scan_generator():
                 
-            
+                angleIndex = np.rint(scan.angle).astype(np.int8)
+                if angleIndex==360:
+                     angleIndex=0
 
-            sleep(0.1)
+                if scan.distance>0:
+                    self.lidarNpArr[angleIndex]=scan.distance
+                    
+                if self.closeEvent.is_set():
+                    self.afterClose()
+                    break
+                if self.outputSendEvent.is_set():
+                    self.afterSendByOutput()
+            break
+            
 
     def afterClose(self):
+        self.lidar.stop()
+        self.lidar.disconnect()
         self.ioManager.tui.updateStatus(self.name,"STOP")
 
     def afterSendByOutput(self):
-        self.ioManager.notify(self.name,"no. {}".format(self.n))
-        self.n=self.n+1
+        sum = np.double(0)
+        self.sendData[0]=self.sendArrayIndex
+
+        for i in range(1,self.numInt16-1):
+            d=self.lidarNpArr[self.sendArrayIndex]
+            self.sendData[i]=d
+            sum = sum+d
+            self.sendArrayIndex=self.sendArrayIndex+self.stepAngle
+            if self.sendArrayIndex>=360:
+                self.sendArrayIndex=0
+        
+        self.sendData[self.numInt16-1] = np.round((sum+100.0)/np.double(self.numInt16-2))
+        self.lock.acquire()
+        glob.outputsBuffer[self.name] = self.sendData
+        self.lock.release()
+
         self.outputSendEvent.clear()
 
 
