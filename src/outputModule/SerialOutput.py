@@ -64,7 +64,7 @@ class SerialOutput(Thread):
                 self.afterClose()
                 break
             sleep(float(self.msSleepTime)/1000.0)
-                       
+                      
 
     def afterClose(self):
         self.serial.close()

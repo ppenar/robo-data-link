@@ -1,0 +1,26 @@
+{
+    "profil":"Random_COM",
+    "inputs": ["inputrandom1"],
+    "output": "serial",
+    "serial":{
+      "info":{
+        "name": "serial",
+        "desc": "serial Dspace desc",
+        "implementedBy": "SerialOutput",
+        "numBuforBytes": 4
+      },
+      "port": "/dev/ttyUSB0",
+      "baundrate": 115200,
+      "join": true,
+      "msSleepTime": 1000    
+    },
+    "inputrandom1":{
+        "info":{
+          "name": "inputrandom1",
+          "desc": "Input Random 1 desc",
+          "implementedBy": "InputRandom",
+          "numBuforBytes": 8
+        },
+        "msSleepTime": 2000
+      }
+  }

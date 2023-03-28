@@ -10,9 +10,9 @@
       "numBuforBytes": 18
     },
     "port": "/dev/ttyUSB1",
-    "baundrate": 9600,
+    "baundrate": 115200,
     "join": true,
-    "msSleepTime": 1000    
+    "msSleepTime": 10    
   },
   "lidar":{
     "info":{
