@@ -145,6 +145,33 @@ class Leica:
         self.info = info
         self.ip,self.port,self.mode = ip,port,mode
 
+
+class Vicon:
+    """
+        Klasa reprezentuje konfiguracje wejścia w postaci systemu Motion Capture firmy Vicon
+        
+        Parametry
+        ----------
+            info : Info
+                informacje o module
+            ip : IPv4Address
+                adres IP
+            port : int
+                port
+            size : int
+                wielkość ramki
+            gainRot: int
+                mnożnik wartości rotacji
+            msSleepTime: int
+                czas pauzy w wątku
+    """
+    def __init__(self,info:Info,remoteIp:IPv4Address,
+                 port:int,size:int,gainRot:int, msSleepTime:int) -> None:
+        self.info = info
+        self.remoteIp,self.port,self.msSleepTime = remoteIp,port,msSleepTime
+        self.size,self.gainRot = size,gainRot
+
+
 class ModuleConfig:
     """
         Klasa reprezentuje konfiguracje programu poprzez określenie wyjścia i jego konfiguracji oraz listy wejść oraz ich konfiguracji
@@ -169,6 +196,7 @@ class ModuleConfig:
     def __init__(self,profil:str,inputs:list,output:str,
                  tcp:Tcp=None, serial : Serial=None,
                  lidar:Lidar=None,leica: Leica=None,
+                 vicon:Vicon=None,
                  inputrandom1: InputRandom =None, inputrandom2: InputRandom =None):
         self.profil =profil
         self.inputs=inputs
@@ -176,6 +204,7 @@ class ModuleConfig:
         self.tcp =tcp
         self.lidar = lidar
         self.leica = leica
+        self.vicon =vicon
         self.serial = serial
 
 

@@ -172,6 +172,41 @@ class JsonTcpScheme(Schema):
     def makeObject(self, data, **kwargs):
         return configModel.Tcp(**data)
 
+
+
+
+class JsonViconScheme(Schema):
+    info = fields.Nested(JsonInfoScheme)
+    remoteIp = fields.IPv4(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIPInvalid")
+        })
+    port = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    size = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    gainRot = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    msSleepTime = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    
+    @post_load
+    def makeObject(self, data, **kwargs):
+        return configModel.Vicon(**data)
+
 class JsonConfigScheme(Schema):
 
     profil = fields.Str(required=True, 
@@ -193,6 +228,7 @@ class JsonConfigScheme(Schema):
     serial = fields.Nested(JsonSerialScheme)
     lidar = fields.Nested(JsonLidarScheme)
     leica = fields.Nested(JsonLeicaScheme)
+    vicon = fields.Nested(JsonViconScheme)
     inputrandom1 = fields.Nested(JsonInputRandomScheme)
     inputrandom2 = fields.Nested(JsonInputRandomScheme)
     

@@ -1,0 +1,31 @@
+{
+  "profil":"Profil_COM",
+  "inputs": ["vicon"],
+  "output": "serial",
+  "serial":{
+    "info":{
+      "name": "serial",
+      "desc": "serial Dspace desc",
+      "implementedBy": "SerialOutput",
+      "numBuforBytes": 18
+    },
+    "port": "COM3",
+    "baundrate": 9600,
+    "join": true,
+    "msSleepTime": 1000
+  },
+  "vicon":{
+    "info":{
+      "name": "vicon",
+      "desc": "Vicon desc",
+      "implementedBy": "ViconModule",
+      "numBuforBytes": 14
+    },
+    "remoteIp": "192.168.10.1",   
+    "port": 51001,
+    "size": 256,
+    "gainRot": 100,
+    "msSleepTime": 2000
+    
+  }
+}

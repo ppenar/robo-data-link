@@ -9,6 +9,7 @@ from rplidar.LidarModule import LidarModule
 from inputs.InputRandom import InputRandom
 from outputModule.TcpOutput import TcpOutput
 from outputModule.SerialOutput import SerialOutput
+from vicon.ViconModule import ViconModule
 
 class RoboDataIO:
 
