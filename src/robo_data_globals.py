@@ -7,6 +7,7 @@ outputsBuffer={}
 COMMAND_RUN="run"
 COMMAND_STOP="stop"
 COMMAND_INIT="init"
+COMMAND_CLOSE="close"
 
 STATUS_RUN = "RUN"
 STATUS_INIT = "INIT:OK"

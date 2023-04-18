@@ -6,7 +6,7 @@ from configModel import ModuleConfig
 from threading import Thread, Event, Lock
 import numpy as np
 import struct
-import ViconUtils
+import vicon.ViconUtils  as vi
 class ViconModule(Thread):
 
     def __init__(self,name,ioManager,outputSendEvent:Event):
@@ -41,9 +41,9 @@ class ViconModule(Thread):
         self.socket.sendto(b"",(str(self.remoteIp),self.port))
         try:
             data, addr = self.socket.recvfrom(self.size)
-            self.viconData= ViconUtils.udpDataToViconData(data)
+            self.viconData= vi.udpDataToViconData(data)
             if self.viconData.itemsInBlock==1:
-                msg = "Track 1 obj: {}".format(self.viconData.items[0].name)
+                msg = "Track 1 obj: {}".format(self.viconData.items[0].name.replace('\x00',''))
             else:
                 msg = "Track {} obj |ERROR".format(self.viconData.itemsInBlock)
 
@@ -77,13 +77,15 @@ class ViconModule(Thread):
             self.socket.sendto(b"",(str(self.remoteIp),self.port))
             try:
                 data, addr = self.socket.recvfrom(self.size)
-                self.viconData= ViconUtils.udpDataToViconData(data)
+                self.viconData= vi.udpDataToViconData(data)
                 msg = "err frame no. {}".format(self.errorNo)
                 self.ioManager.tui.updateStatus(self.name,"INIT: {}".format(msg))
                 sleep(0.0500)
                 if self.closeEvent.is_set():
                     self.afterClose()
                     break
+                if self.outputSendEvent.is_set():
+                    self.afterSendByOutput()
                 
             except socket.timeout:
                 self.errorNo=self.errorNo+1
@@ -102,10 +104,10 @@ class ViconModule(Thread):
         if self.viconData.itemsInBlock==1:
             sendDataItem = self.viconData.items[0]
         else:
-            sendDataItem = ViconUtils.PosObject()
-            
+            sendDataItem = vi.PosObject()
+        self.lock.acquire()
         glob.outputsBuffer[self.name] =sendDataItem.toArrayWithChecksum(self.gainRot)
-        
+        self.lock.release()
         self.outputSendEvent.clear()
 
 

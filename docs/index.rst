@@ -9,23 +9,23 @@ Dokumentacja robo-data-link
    Projekt jest aktywnie rozwijany.
 
 
-Requirements & libraries
+Wymagania & biblioteki
 =========================
 
 * Python >=3.10.5
-* `Marshmallow <https://github.com/marshmallow-code/marshmallow>`_ - an ORM/ODM/framework-agnostic library for converting complex datatypes, such as objects, to and from native Python datatypes. In this project, marshmallow validates and converts the configuration file _moduleConfig.json to a Python object
+* `Marshmallow <https://github.com/marshmallow-code/marshmallow>`_ - biblioteka ORM do konwersji złożonych typów danych, takich jak obiekty, z/do natywnych typów danych Pythona. W tym projekcie biblioteka *marshmallow* sprawdza poprawność i konwertuje plik konfiguracyjny moduleConfig*.json na obiekt Pythona.
 
 .. code-block:: console
 
     $ pip install -U marshmallow
 
-* `npyscreen <https://npyscreen.readthedocs.io>`_ - npyscreen is a python widget library and application framework for programming terminal or console applications. It is built on top of ncurses, which is part of the standard library.
+* `npyscreen <https://npyscreen.readthedocs.io>`_ - npyscreen to biblioteka widżetów do budowania aplikacji  konsolowych. Jest zbudowana na bazie biblioteki *ncurses*, która jest częścią biblioteki standardowej.
 
 .. code-block:: console
 
     $ pip install npyscreen
 
-* `pySerial <https://pythonhosted.org/pyserial/>`_ - his module encapsulates the access for the serial port.
+* `pySerial <https://pythonhosted.org/pyserial/>`_ - moduł umożliwiający dostęp do portu szeregowego
 
 .. code-block:: console
 
@@ -34,7 +34,8 @@ Requirements & libraries
 
 **Dokumentacja**
 
-* `Sphinx <https://www.sphinx-doc.org>`_ - Sphinx makes it easy to create intelligent and beautiful documentation.
+
+* `Sphinx <https://www.sphinx-doc.org>`_ - Moduł do tworzenia dokumentacji
 
 WINDOWS
 
@@ -48,20 +49,21 @@ LINUX
     
     $ sudo apt-get install python3-sphinx
 
-* `sphinx-design <https://pypi.org/project/sphinx_design/>`_ - A sphinx extension for designing beautiful, view size responsive web components.
+* `sphinx-design <https://pypi.org/project/sphinx_design/>`_ - Rozszerzenie do *Sphinx*
 
 .. code-block:: console
     
     $ pip install sphinx_design
 
 
-* `sphinx-rtd-theme <https://pypi.org/project/sphinx-rtd-theme/>`_ - This Sphinx theme was designed to provide a great reader experience for documentation users on both desktop and mobile devices.
+* `sphinx-rtd-theme <https://pypi.org/project/sphinx-rtd-theme/>`_ -  Rozszerzenie do *Sphinx*
 
 .. code-block:: console
     
     $ pip install sphinx-rtd-theme
 
-**Build documentation:** 
+**Build:** 
+
 .. code-block:: console
     
     $ cd docs

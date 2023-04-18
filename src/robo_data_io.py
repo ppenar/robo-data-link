@@ -96,7 +96,21 @@ class RoboDataIO:
         if name == glob.COMMAND_STOP and self.status==glob.STATUS_RUN:
             self.status=glob.STATUS_STOP
             self.stop()
-            
+
+        if name == glob.COMMAND_CLOSE and (self.status==glob.STATUS_UNKNOWN or
+                                          self.status==glob.STATUS_STOP):
+            self.init()
+            self.status=glob.STATUS_INIT    
+            self.tui.closeApp()
+
+
+        if name == glob.COMMAND_CLOSE and self.status==glob.STATUS_RUN:
+            self.status=glob.STATUS_STOP
+            self.stop()
+            self.tui.closeApp()
+
+
+
 
 
 

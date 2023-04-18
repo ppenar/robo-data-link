@@ -4,10 +4,11 @@ import utils
 class TuiBox:
 
 
-    def __init__(self,info:Info, number, type="io") -> None:
+    def __init__(self,info:Info, number, type="io",maxWidth=60) -> None:
         self.info=info
         self.number=number
         self.type = type 
+        self.maxWidth=maxWidth
         if type =="io":
             self.lines = ["Name: {}".format(self.info.name),
                 "Desc: {}".format(self.info.desc),
@@ -23,7 +24,7 @@ class TuiBox:
 
     def getRelxRely(self):
         if self.number%2==0:
-            return [64,2+(self.number-2)*3]
+            return [self.maxWidth+4,2+(self.number-2)*3]
         else: 
             return [2,2+(self.number-1)*3]
         

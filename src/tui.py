@@ -21,6 +21,9 @@ class TuiRoboDataLink(npyscreen.NPSAppManaged):
 
     def execCommand(self,name):
         self.observer.tuiExecCommand(name)
+    
+    def closeApp(self):
+        self.form.parentApp.switchForm(None)
 
 
 
@@ -31,6 +34,11 @@ class TuiRoboDataLinkMainForm(npyscreen.FormWithMenus):
         self.configModel = config
         self.outputBox =None
         self.appManager=appManager
+
+
+        currentMax=60
+        if int(self.max_x/2)<70:
+            currentMax = int(self.max_x/2)-10
 
         
         
@@ -47,7 +55,8 @@ class TuiRoboDataLinkMainForm(npyscreen.FormWithMenus):
                 currentType="info"
             self.box[i.name] = tuiBox.TuiBox(info=i,
                                        number=num,
-                                       type=currentType)
+                                       type=currentType,
+                                       maxWidth=currentMax)
             
             if num>2:
                 currentBoxName = "INPUT {}".format(num-2)
@@ -60,13 +69,14 @@ class TuiRoboDataLinkMainForm(npyscreen.FormWithMenus):
                                              relx =pos[0],
                                              rely=pos[1],
                                              max_height=6,
-                                             max_width=60))
+                                             max_width=currentMax))
             
             num=num+1
 
         hotKey={"^R":self.execCommand,
                 "^T":self.execCommand,
-                "^A":self.execCommand
+                "^A":self.execCommand,
+                "^Z":self.execCommand
                 }
         self.add_handlers(hotKey)
 
@@ -80,4 +90,7 @@ class TuiRoboDataLinkMainForm(npyscreen.FormWithMenus):
             self.appManager.execCommand(glob.COMMAND_STOP)
         elif keyStr=="^A":
             npyscreen.notify_confirm(glob.cfg["TUI"]["ABOUT"])
+        elif keyStr=="^Z":
+            self.appManager.execCommand(glob.COMMAND_CLOSE)
+    
     
