@@ -9,10 +9,10 @@
       "implementedBy": "SerialOutput",
       "numBuforBytes": 18
     },
-    "port": "COM3",
-    "baundrate": 9600,
+    "port": "/dev/ttyUSB0",
+    "baundrate": 115200,
     "join": true,
-    "msSleepTime": 1000
+    "msSleepTime": 100
   },
   "vicon":{
     "info":{

@@ -11,7 +11,7 @@ class ViconModule(Thread):
 
     def __init__(self,name,ioManager,outputSendEvent:Event):
         super().__init__()
-        
+        self.n=0
         self.ioManager=ioManager
         self.name =name
         self.config=ioManager.config
@@ -78,7 +78,8 @@ class ViconModule(Thread):
             try:
                 data, addr = self.socket.recvfrom(self.size)
                 self.viconData= vi.udpDataToViconData(data)
-                msg = "err frame no. {}".format(self.errorNo)
+                msg = "no. {}, err frame no. {}".format(self.n,self.errorNo)
+                self.n=self.n+1
                 self.ioManager.tui.updateStatus(self.name,"INIT: {}".format(msg))
                 sleep(0.0500)
                 if self.closeEvent.is_set():
