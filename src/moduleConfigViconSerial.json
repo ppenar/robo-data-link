@@ -19,7 +19,7 @@
       "name": "vicon",
       "desc": "Vicon desc",
       "implementedBy": "ViconModule",
-      "numBuforBytes": 14
+      "numBuforBytes": 18
     },
     "remoteIp": "192.168.10.1",   
     "port": 51001,

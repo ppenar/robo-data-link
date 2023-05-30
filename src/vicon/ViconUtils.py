@@ -23,13 +23,20 @@ class PosObject:
         self.rotZ=rotZ
 
     def toArrayWithChecksum(self,rotGain):
-        checksum = np.int16(np.double(self.transX+self.transY+self.transZ)/3.0)
+        iTX=np.int16(self.transX)
+        iTY=np.int16(self.transY)
+        iTZ=np.int16(self.transZ)
+
+        checksum = np.int16(np.round(np.double(iTX+iTY+iTZ)/3.0))
+        #array size - 18 bytes
+        #arrray format[TX,TY,TZ,RX*gain,RY*gain,RZ*gain,100(const),100(const),checksum]
         return np.array([self.transX,
                          self.transY,
                          self.transZ,
                          self.rotX*rotGain,
                          self.rotY*rotGain,
                          self.rotZ*rotGain,
+                         100,100,
                          checksum],dtype=np.int16)
     
     def __str__(self) -> str:

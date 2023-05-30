@@ -57,13 +57,15 @@ class LidarModule(Thread):
         while True:
             scan_generator = self.lidar.start_scan()
             for scan in scan_generator():
+
+
                 
-                angleIndex = np.rint(scan.angle).astype(np.int8)
+                angleIndex = np.rint(scan.angle).astype(np.int16)
                 if angleIndex==360:
                      angleIndex=0
 
-                if scan.distance>0:
-                    self.lidarNpArr[angleIndex]=scan.distance
+                
+                self.lidarNpArr[359-angleIndex]=scan.distance
                     
                 if self.closeEvent.is_set():
                     self.afterClose()

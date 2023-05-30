@@ -1,6 +1,6 @@
 {
   "profil":"Profil_COM",
-  "inputs": ["lidar"],
+  "inputs": ["vicon","lidar"],
   "output": "serial",
   "serial":{
     "info":{
@@ -9,10 +9,24 @@
       "implementedBy": "SerialOutput",
       "numBuforBytes": 18
     },
-    "port": "/dev/ttyUSB0",
+    "port": "/dev/ttyUSB1",
     "baundrate": 115200,
     "join": true,
-    "msSleepTime": 10    
+    "msSleepTime": 1
+  },
+  "vicon":{
+    "info":{
+      "name": "vicon",
+      "desc": "Vicon desc",
+      "implementedBy": "ViconModule",
+      "numBuforBytes": 18
+    },
+    "remoteIp": "192.168.10.1",   
+    "port": 51001,
+    "size": 256,
+    "gainRot": 100,
+    "msSleepTime": 2000
+    
   },
   "lidar":{
     "info":{
@@ -21,7 +35,7 @@
       "implementedBy": "LidarModule",
       "numBuforBytes": 18
     },
-    "port": "/dev/ttyUSB1",
+    "port": "/dev/ttyUSB0",
     "baundrate": 256000,
     "stepAngle": 5
   }

@@ -21,6 +21,8 @@ class SerialOutput(Thread):
         self.port = self.config.getOutput().port
         self.baundrate = self.config.getOutput().baundrate
         self.msSleepTime = self.config.getOutput().msSleepTime
+
+        self.n=0
         
 
         glob.log.info("Output thread %s create",self.name)
@@ -51,10 +53,15 @@ class SerialOutput(Thread):
         
         while True:
             sendData = np.array([],dtype=np.int16)
+         #   self.n=self.n+1
             self.lock.acquire()
-            for i in self.inputs:
-                name = i.info.name    
-                sendData = np.concatenate((sendData,glob.outputsBuffer[name]))
+            i = self.inputs[self.n]
+            sendData = glob.outputsBuffer[i.info.name]
+
+
+            #for i in self.inputs:
+            #    name = i.info.name    
+            #    sendData = np.concatenate((sendData,glob.outputsBuffer[name]))
             self.lock.release()
             self.serial.write(sendData.tobytes())
             self.ioManager.setOutputSendEvent()
@@ -63,8 +70,8 @@ class SerialOutput(Thread):
             if self.closeEvent.is_set():
                 self.afterClose()
                 break
-            sleep(float(self.msSleepTime)/1000.0)
-                      
+            #sleep(float(self.msSleepTime)/1000.0)
+            sleep(0.1)         
 
     def afterClose(self):
         self.serial.close()
