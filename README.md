@@ -1,3 +1,5 @@
+Documentation in English in progress....
+
 # robo-data-link
 
 Application to connect multiple measuring devices.
@@ -13,15 +15,3 @@ Application to connect multiple measuring devices.
     
     $ pip install npyscreen
 
-
-
-# Dokumentacja
-
-* [for Rasp]: sudo apt-get install python3-sphinx
-
-Build: 
-
-# Lista portów
-.. code-block:: console
-    
-    $ python -m serial.tools.list_ports -v
