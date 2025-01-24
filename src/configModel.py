@@ -125,6 +125,30 @@ class Lidar:
         self.port,self.baundrate =port,baundrate
         self.stepAngle = stepAngle
 
+class LidarPos:
+    """
+        Klasa reprezentuje konfiguracje lidara, który będzie stanowić możliwe wejście 
+        
+        Parametry
+        ----------
+            info : Info
+                informacje o module
+            port : str
+                nazwa portu szeregowego wykorzystanego do komunikacji z lidarem
+            baundrate : int
+                szybkość komunikacji portu szeregowego
+            stepAngle: int
+                krok odczytu stopni
+            posInterval: int
+                interwał ilości wysłanych ramek, po którym następuje wysłanie pozycji
+    """
+    def __init__(self,info:Info, port:str, baundrate:int,stepAngle:int,posInterval:int) -> None:
+        self.info = info
+        self.port,self.baundrate =port,baundrate
+        self.stepAngle = stepAngle
+        self.posInterval = posInterval
+
+
 class Leica:
     """
         Klasa reprezentuje konfiguracje wejścia w postaci trackera laserowego Leica

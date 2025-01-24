@@ -1,0 +1,29 @@
+{
+  "profil":"Profil_COM",
+  "inputs": ["lidarPos"],
+  "output": "serial",
+  "serial":{
+    "info":{
+      "name": "serial",
+      "desc": "serial Dspace desc",
+      "implementedBy": "SerialOutput",
+      "numBuforBytes": 18
+    },
+    "port": "/dev/ttyUSB0",
+    "baundrate": 115200,
+    "join": true,
+    "msSleepTime": 10    
+  },
+  "lidarPos":{
+    "info":{
+      "name": "lidarPos",
+      "desc": "lidarPos desc",
+      "implementedBy": "LidarPosModule",
+      "numBuforBytes": 18
+    },
+    "port": "/dev/ttyUSB1",
+    "baundrate": 256000,
+    "stepAngle": 5,
+    "posInterval": 10
+  }
+}

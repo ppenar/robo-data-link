@@ -95,6 +95,33 @@ class JsonLidarScheme(Schema):
         return configModel.Lidar(**data)
     
 
+class JsonLidarPosScheme(Schema):
+    info = fields.Nested(JsonInfoScheme)
+    port = fields.Str(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeStrInvalid")
+        })
+    baundrate = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    stepAngle = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    posInterval = fields.Integer(required=True,
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    @post_load
+    def makeObject(self, data, **kwargs):
+        return configModel.Lidar(**data)
+
+
 class JsonInputRandomScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
     msSleepTime = fields.Integer(required=True, 
@@ -227,6 +254,7 @@ class JsonConfigScheme(Schema):
     tcp = fields.Nested(JsonTcpScheme)
     serial = fields.Nested(JsonSerialScheme)
     lidar = fields.Nested(JsonLidarScheme)
+    lidarPos = fields.Nested(JsonLidarPosScheme)
     leica = fields.Nested(JsonLeicaScheme)
     vicon = fields.Nested(JsonViconScheme)
     inputrandom1 = fields.Nested(JsonInputRandomScheme)
