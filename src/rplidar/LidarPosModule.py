@@ -6,6 +6,19 @@ from threading import Thread, Event, Lock
 from rplidar.pyrplidar import PyRPlidar, PyRPlidarConnectionError
 import numpy as np
 
+
+from breezyslam.algorithms import RMHC_SLAM
+from breezyslam.sensors import RPLidarA1 as LaserModel
+
+
+
+
+
+MAP_SIZE_PIXELS         = 500
+MAP_SIZE_METERS         = 10
+
+
+
 class LidarModule(Thread):
 
     def __init__(self,name,ioManager,outputSendEvent:Event):
@@ -32,9 +45,8 @@ class LidarModule(Thread):
         self.sendArrayIndex=0
 
         self.currentPosInterval = 0
-        self.posX = 50000
-        self.posY = 50000
-        self.theta = 50000
+
+        self.slam = RMHC_SLAM(LaserModel(), MAP_SIZE_PIXELS, MAP_SIZE_METERS)
 
         glob.log.info("Thread %s create",self.name)
 
@@ -62,6 +74,10 @@ class LidarModule(Thread):
         self.lock.acquire()
         glob.outputsBuffer[self.name] = np.zeros(self.numInt16,dtype=np.int16)
         self.lock.release()
+
+
+
+        
         while True:
             scan_generator = self.lidar.start_scan()
             for scan in scan_generator():
@@ -90,11 +106,14 @@ class LidarModule(Thread):
 
     def afterSendByOutput(self):
 
-        if self.currentPosInterval == self.posInterval:
+        if self.currentPosInterval == self.posInterval and np.all(self.lidarNpArr!=0):
+            self.slam.update(self.lidarNpArr,np.array(range(0,360,1)))
+            x,y,theta = self.slam.getpos()
             self.sendData[0]=25
-            self.sendData[1]=self.posX
-            self.sendData[2]=self.posY
-            self.sendData[3]=self.theta
+            self.sendData[1]=x
+            self.sendData[2]=y
+            self.sendData[3]=theta
+
             for i in range(4,self.numInt16-1):\
                 self.sendData[i]=100
             self.sendData[self.numInt16-1]=(self.posX+self.posY)/2
