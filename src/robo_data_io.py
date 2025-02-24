@@ -6,9 +6,12 @@ from threading import Event, Lock
 import numpy as np
 
 from rplidar.LidarModule import LidarModule
+from rplidar.LidarSlamModule import LidarSlamModule
+from rplidar.SimLidarSlamModule import SimLidarSlamModule
 from inputs.InputRandom import InputRandom
 from outputModule.TcpOutput import TcpOutput
 from outputModule.SerialOutput import SerialOutput
+from outputModule.FileOutput import FileOutput
 from vicon.ViconModule import ViconModule
 
 class RoboDataIO:

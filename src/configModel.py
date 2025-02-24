@@ -81,6 +81,25 @@ class Serial:
         self.join=join
         self.msSleepTime = msSleepTime
 
+class OutputFile:
+    """
+        Klasa reprezentuje konfiguracje dla wyjścia w postaci pliku.
+        Parametry
+        ----------
+            info : Info
+                informacje o module
+            path : str
+                ścieżka do pliku
+            msSleepTime: int
+                czas pauzy w wątku
+    """
+    def __init__(self,info:Info, path:str, 
+                 msSleepTime:int):
+        self.info=info
+        self.path = path
+        self.msSleepTime = msSleepTime
+
+
 class Tcp:
     """
         Klasa reprezentuje konfiguracje wyjścia TCP
@@ -218,7 +237,7 @@ class ModuleConfig:
                 pole, którego wartość to obiekt opisujący konfiguracje trackera laserowego Leica. W przypadku, gdy w danej konfiguracji to wejście nie jest używane =None
         """
     def __init__(self,profil:str,inputs:list,output:str,
-                 tcp:Tcp=None, serial : Serial=None,
+                 tcp:Tcp=None, serial : Serial=None, outputFile: OutputFile = None,
                  lidar:Lidar=None,leica: Leica=None,
                  vicon:Vicon=None,
                  inputrandom1: InputRandom =None, inputrandom2: InputRandom =None):
@@ -230,6 +249,8 @@ class ModuleConfig:
         self.leica = leica
         self.vicon =vicon
         self.serial = serial
+        self.outputFile = outputFile
+    
 
 
         self.inputrandom1=inputrandom1

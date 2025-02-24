@@ -1,17 +1,15 @@
 {
   "profil":"Profil_COM",
   "inputs": ["lidar"],
-  "output": "serial",
-  "serial":{
+  "output": "outputFile",
+  "outputFile":{
     "info":{
-      "name": "serial",
-      "desc": "serial Dspace desc",
-      "implementedBy": "SerialOutput",
+      "name": "outputFile",
+      "desc": "outputFile Dspace desc",
+      "implementedBy": "FileOutput",
       "numBuforBytes": 18
     },
-    "port": "/dev/ttyUSB0",
-    "baundrate": 115200,
-    "join": true,
+    "path": "test.txt",
     "msSleepTime": 10    
   },
   "lidar":{

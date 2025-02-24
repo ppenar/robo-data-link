@@ -95,6 +95,7 @@ class JsonLidarScheme(Schema):
         return configModel.Lidar(**data)
     
 
+
 class JsonLidarPosScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
     port = fields.Str(required=True, 
@@ -171,6 +172,25 @@ class JsonSerialScheme(Schema):
     @post_load
     def makeObject(self, data, **kwargs):
         return configModel.Serial(**data)
+    
+
+
+class JsonOutputFileScheme(Schema):
+    info = fields.Nested(JsonInfoScheme)
+    path = fields.Str(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeStrInvalid")
+        })
+   
+    msSleepTime = fields.Integer(required=True, 
+                        error_messages={
+        "required": utils.getErrorMsg("SchemeRequired"),
+        "invalid": utils.getErrorMsg("SchemeIntInvalid")
+        })
+    @post_load
+    def makeObject(self, data, **kwargs):
+        return configModel.OutputFile(**data)    
     
 class JsonTcpScheme(Schema):
     info = fields.Nested(JsonInfoScheme)
@@ -253,6 +273,7 @@ class JsonConfigScheme(Schema):
         })
     tcp = fields.Nested(JsonTcpScheme)
     serial = fields.Nested(JsonSerialScheme)
+    outputFile = fields.Nested(JsonOutputFileScheme)
     lidar = fields.Nested(JsonLidarScheme)
     lidarPos = fields.Nested(JsonLidarPosScheme)
     leica = fields.Nested(JsonLeicaScheme)
